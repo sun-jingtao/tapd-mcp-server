@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "types": ["node"]
+  },
+  // 根配置面向编辑器与 `pnpm typecheck`（tsc --noEmit）：覆盖源码 + 测试 + e2e + vitest 配置，
+  // 保证测试文件也受类型检查（vitest 经 esbuild 只剥类型不检查）。
+  // 构建产物走 tsconfig.build.json（仅 src、排除测试），见 package.json 的 build 脚本。
+  "include": ["src/**/*", "e2e/**/*", "vitest.config.ts", "vitest.e2e.config.ts"]
+}

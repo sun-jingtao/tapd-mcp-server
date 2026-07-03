@@ -1,0 +1,19 @@
+# Source files are compiled into dist/.
+src/
+*.ts
+tsconfig.json
+
+# Local and generated content.
+.env*
+node_modules/.cache/
+dist/**/*.map
+
+# Repository-only content.
+.git/
+.gitignore
+.claude/
+scripts/
+docs/
+
+# Avoid nesting package artifacts.
+mcpb/

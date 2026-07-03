@@ -1,0 +1,64 @@
+{
+  "name": "tapd-mcp-server",
+  "version": "1.0.4",
+  "mcpName": "io.github.sun-jingtao/tapd-mcp-server",
+  "description": "TAPD MCP Server - 在 Cursor/Copilot 中查询、分析和回填 TAPD bug / 需求",
+  "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig.build.json && chmod +x dist/index.js",
+    "dev": "tsc -p tsconfig.build.json --watch",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:cov": "vitest run --coverage",
+    "test:e2e": "vitest run --config vitest.e2e.config.ts",
+    "release": "bash scripts/release.sh"
+  },
+  "keywords": [
+    "modelcontextprotocol",
+    "mcp",
+    "tapd",
+    "cursor",
+    "vscode",
+    "developer-tools"
+  ],
+  "author": "孙景涛 (https://github.com/sun-jingtao)",
+  "homepage": "https://github.com/sun-jingtao/tapd-mcp-server#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sun-jingtao/tapd-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sun-jingtao/tapd-mcp-server/issues"
+  },
+  "type": "module",
+  "bin": {
+    "tapd-mcp-server": "dist/index.js"
+  },
+  "icon": "icon.png",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "server.json",
+    "icon.png",
+    "icon.svg",
+    "assets"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@vitest/coverage-v8": "^4.1.8",
+    "rimraf": "^6.1.3",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.8"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "declaration": true,
+    "sourceMap": true
+  },
+  // 仅编译运行时源码；测试与 fixtures 由根 tsconfig 的 typecheck 覆盖，不进 dist。
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.ts", "src/**/__fixtures__/**"]
+}

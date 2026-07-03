@@ -1,0 +1,121 @@
+{
+  "manifest_version": "0.3",
+  "name": "tapd-mcp-server",
+  "display_name": "TAPD MCP",
+  "version": "1.0.4",
+  "description": "TAPD bug / 需求查询、分析和回填助手",
+  "long_description": "TAPD MCP Server 将 TAPD 接入 Cursor、VS Code Copilot 等支持 MCP 的客户端。它可以查询 bug、需求、迭代和需求关联测试用例，获取完整上下文，并在用户确认后创建或回填 TAPD 数据。",
+  "author": {
+    "name": "孙景涛",
+    "url": "https://github.com/sun-jingtao"
+  },
+  "homepage": "https://github.com/sun-jingtao/tapd-mcp-server#readme",
+  "documentation": "https://github.com/sun-jingtao/tapd-mcp-server#readme",
+  "support": "https://github.com/sun-jingtao/tapd-mcp-server/issues",
+  "icon": "icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/dist/index.js"
+      ],
+      "env": {
+        "TAPD_ACCESS_TOKEN": "${TAPD_ACCESS_TOKEN}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "tapd_list_bugs",
+      "description": "查询 TAPD bug 列表，默认查当前登录用户负责的缺陷；支持按处理人、id、story_id、标题、状态、严重程度、迭代、模块、版本、各类人员、自定义字段等筛选并自定义排序。"
+    },
+    {
+      "name": "tapd_get_bugs",
+      "description": "批量获取多个 bug 的描述、复现步骤、评论、附件、图片和视频等完整内容。"
+    },
+    {
+      "name": "tapd_create_bug",
+      "description": "在 TAPD 创建一个已确认的新 bug，可选关联需求，支持优先级、严重程度、模块、版本、迭代、排期、各类人员、工时、模板、自定义字段等；不传处理人则指派给当前登录用户。"
+    },
+    {
+      "name": "tapd_writeback",
+      "description": "更新 TAPD bug：回填评论、更新标题、描述、状态、处理人，以及优先级、严重程度、版本、迭代、各类人员、工时、标签等标准字段和自定义字段，可自由组合；各动作分多次请求提交、非事务，可能部分成功。"
+    },
+    {
+      "name": "tapd_list_bug_changes",
+      "description": "查询 TAPD bug 变更历史，支持按变更人、变更字段过滤并自定义排序，可返回创建缺陷记录。"
+    },
+    {
+      "name": "tapd_upload_bug_attachment",
+      "description": "上传文件到缺陷附件区（任意类型，单文件 ≤250MB，base64 传入）。"
+    },
+    {
+      "name": "tapd_upload_bug_image",
+      "description": "上传图片到 TAPD 并返回内嵌 html_code（png/gif/jpg/jpeg/bmp，单张 ≤5MB）。"
+    },
+    {
+      "name": "tapd_append_bug_description_image",
+      "description": "上传图片并自动追加到缺陷描述末尾（先读后写避免覆盖原有正文）。"
+    },
+    {
+      "name": "tapd_list_stories",
+      "description": "查询 TAPD 需求列表，默认查当前登录用户负责的需求；支持按处理人、id、状态、迭代、模块、分类、标签、父子需求、自定义字段等筛选并自定义排序。"
+    },
+    {
+      "name": "tapd_get_stories",
+      "description": "批量获取多个需求的描述、评论、附件、图片和视频等完整内容。"
+    },
+    {
+      "name": "tapd_create_story",
+      "description": "在 TAPD 创建一个已确认的新需求，支持处理人、优先级、迭代、父需求、标签、排期、工时、自定义字段等；不传处理人则指派给当前登录用户。"
+    },
+    {
+      "name": "tapd_writeback_story",
+      "description": "更新 TAPD 需求：回填评论、更新描述、状态、处理人，以及标题、优先级、迭代、工时、标签等标准字段和自定义字段，可自由组合；各动作分多次请求提交、非事务，可能部分成功。"
+    },
+    {
+      "name": "tapd_list_story_changes",
+      "description": "查询 TAPD 需求变更历史及字段级变更详情，支持按变更人、变更字段、变更类型过滤并自定义排序。"
+    },
+    {
+      "name": "tapd_list_story_test_cases",
+      "description": "查询指定需求直接关联的测试用例，支持按名称和状态过滤。"
+    },
+    {
+      "name": "tapd_list_workspaces",
+      "description": "查询用户参与的所有 TAPD 项目，默认过滤掉公司/组织级条目。"
+    },
+    {
+      "name": "tapd_list_iterations",
+      "description": "查询 TAPD 项目迭代列表，支持按 id、名称、状态、起止时间、迭代类别、创建人、自定义字段等过滤并自定义排序。"
+    },
+    {
+      "name": "tapd_search_users",
+      "description": "按姓名、TAPD nick 或邮箱搜索项目成员；更新处理人前先确认目标 nick。"
+    }
+  ],
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=20.0.0"
+    }
+  },
+  "keywords": [
+    "tapd",
+    "mcp",
+    "bug",
+    "story",
+    "developer-tools"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sun-jingtao/tapd-mcp-server.git"
+  }
+}

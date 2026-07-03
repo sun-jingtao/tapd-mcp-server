@@ -1,0 +1,40 @@
+{
+  "status": 1,
+  "data": [
+    {
+      "Bug": {
+        "id": "1001001",
+        "title": "登录页验证码偶现不刷新",
+        "description": "<p>连续点击刷新按钮，验证码图片不更新。</p><img src=\"/tfl/captures/a.png\">",
+        "priority_label": "High",
+        "priority": "1",
+        "status": "in_progress",
+        "severity": "normal",
+        "module": "账户中心",
+        "current_owner": "tester;",
+        "reporter": "reporter_a",
+        "created": "2026-05-30 10:12:00",
+        "modified": "2026-06-01 09:00:00",
+        "version_report": "v1.2.0",
+        "os": "",
+        "workspace_id": "59787500"
+      }
+    },
+    {
+      "Bug": {
+        "id": "1001002",
+        "title": "导出 Excel 缺少表头",
+        "description": "",
+        "priority": "2",
+        "status": "resolved",
+        "severity": "advice",
+        "module": "报表",
+        "current_owner": "dev_b;",
+        "reporter": "reporter_a",
+        "created": "2026-05-28 14:00:00",
+        "modified": "2026-05-31 18:30:00",
+        "workspace_id": "59787500"
+      }
+    }
+  ]
+}
