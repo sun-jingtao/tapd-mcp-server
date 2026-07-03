@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://unpkg.com/tapd-mcp-server/icon.png" width="128" height="128" alt="tapd-mcp-server icon" />
+  <img src="./icon.png" width="128" height="128" alt="tapd-mcp-server icon" />
 </p>
 
 <h1 align="center">TAPD MCP Server</h1>
@@ -56,7 +56,7 @@
 
 Agent 会先用 `tapd_search_users` 确认各成员 nick，再用 `tapd_list_bugs`（跨项目聚合）逐个统计，汇总出全组视图：每人的未关闭、今日新增、超 24h / 72h、挂起等数量，并可按成员拆分明细。配合客户端的可视化能力（如 Cursor Canvas），还能直接生成下面这样的看板，组长盯进度一目了然。
 
-![团队 Bug 统计看板](https://unpkg.com/tapd-mcp-server/assets/team-bug.png)
+![团队 Bug 统计看板](./assets/team-bug.png)
 
 > 这是一个由 Agent 编排多个 MCP 工具完成的使用场景，并非单个内置工具；统计维度与可视化形式由你的指令和客户端能力决定。
 
@@ -66,7 +66,7 @@ Agent 会先用 `tapd_search_users` 确认各成员 nick，再用 `tapd_list_bug
 
 Agent 跨项目聚合查询你负责的需求与缺陷，返回带内嵌超链接的 Markdown 表格——名称即链接、点击直达 TAPD，并标注每条所属项目。可继续按状态、创建时间、关联需求等过滤，或指定某个项目 ID 只查该项目。
 
-![查询名下需求与 Bug](https://unpkg.com/tapd-mcp-server/assets/view-bug-story.png)
+![查询名下需求与 Bug](./assets/view-bug-story.png)
 
 ### 3. 批量判断服务端归因并追加处理人
 
@@ -80,7 +80,7 @@ Agent 会先查询 bug 详情，再根据现象、接口返回、复现步骤等
 
 Agent 跨项目定位各 bug、拉取完整上下文（描述、复现、评论、附件、图片），结合当前代码库给出问题定位与修改建议（改码需你确认）；修复后用 `tapd_bug_fix_writeback` 生成回填草稿，确认后把状态改为已解决并写入评论，不会主动更新处理人。
 
-![Bug 批量修复并回填](https://unpkg.com/tapd-mcp-server/assets/bug-fix.png)
+![Bug 批量修复并回填](./assets/bug-fix.png)
 
 ### 5. 需求宣讲前研发评估
 
