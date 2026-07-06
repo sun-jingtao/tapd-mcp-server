@@ -32,6 +32,12 @@
           "description": "TAPD 个人访问令牌",
           "isRequired": true,
           "isSecret": true
+        },
+        {
+          "name": "TAPD_ALLOW_RAW_WRITE",
+          "description": "是否允许 tapd_call_api 通用透传工具发起 POST 写操作，设为 true 开启；默认关闭，仅拦截透传写入，不影响专用写工具",
+          "isRequired": false,
+          "isSecret": false
         }
       ]
     }

@@ -111,7 +111,7 @@ describe("tapd_call_api", () => {
     const data = { workspace_id: "123", workitems: [{ id: 1, name: "A" }] };
     const res = await mcp.callTool({
       name: "tapd_call_api",
-      arguments: { method: "POST", path: "/stories/batch_update", data, body_format: "json", confirmed: true },
+      arguments: { method: "POST", path: "/stories/batch_update_story", data, body_format: "json", confirmed: true },
     });
 
     expect(res.isError).toBeFalsy();
@@ -127,7 +127,7 @@ describe("tapd_call_api", () => {
 
     const res = await mcp.callTool({
       name: "tapd_call_api",
-      arguments: { method: "POST", path: "/stories/batch_update", data: { workitems: [{ id: 1 }] }, confirmed: true },
+      arguments: { method: "POST", path: "/stories/batch_update_story", data: { workitems: [{ id: 1 }] }, confirmed: true },
     });
 
     expect(res.isError).toBe(true);

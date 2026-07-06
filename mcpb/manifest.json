@@ -22,7 +22,8 @@
         "${__dirname}/dist/index.js"
       ],
       "env": {
-        "TAPD_ACCESS_TOKEN": "${TAPD_ACCESS_TOKEN}"
+        "TAPD_ACCESS_TOKEN": "${TAPD_ACCESS_TOKEN}",
+        "TAPD_ALLOW_RAW_WRITE": "${TAPD_ALLOW_RAW_WRITE}"
       }
     }
   },
