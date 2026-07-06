@@ -94,6 +94,10 @@
     {
       "name": "tapd_search_users",
       "description": "按姓名、TAPD nick 或邮箱搜索项目成员；更新处理人前先确认目标 nick。"
+    },
+    {
+      "name": "tapd_call_api",
+      "description": "通用透传：直接调用任意 TAPD OpenAPI 接口，兜底专用工具未覆盖的场景；POST 写操作默认禁用，需 TAPD_ALLOW_RAW_WRITE=true 并逐次确认。"
     }
   ],
   "compatibility": {

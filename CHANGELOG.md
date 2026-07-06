@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.5
+
+- 新增通用透传工具 `tapd_call_api`：直接调用任意 TAPD OpenAPI 接口（任务、工时、测试计划、模块/版本配置、Wiki、看板等），兜底 17 个专用工具未覆盖的官方接口；path/参数以官方文档为准，由调用方模型按需拼装。
+- 写保护双闸：POST 写操作默认禁用，需在 MCP 配置 env 设置 `TAPD_ALLOW_RAW_WRITE=true`（环境级开关），且每次调用需显式传入 `confirmed: true`（调用级确认，沿用现有写工具约定），任一缺失都在发出请求前拦截。
+- 支持 `body_format: "form" | "json"`：默认表单提交；`batch_update_story` 等要求 JSON 请求体（含数组/对象参数）的接口传 `json`（官方文档确认其「支持格式 JSON/XML，默认 JSON」）。form 模式遇到数组/对象参数会报错并提示改用 json，不会静默序列化为无效值。
+- 请求层 `tapdRequest` 的 `body` 支持 JSON 字符串（自动补 `Content-Type: application/json`），表单路径行为不变。
+- 查询结果超 5 万字符自动截断并提示缩小查询范围，防止 list 类接口撑爆模型上下文；文件上传（multipart）不经本工具，仍走专用上传工具。
+
 ## 1.0.4
 
 - `tapd_writeback_story` 补全所用 TAPD 接口的全量参数：`/stories` 新增标题、优先级、业务价值、版本、模块、测试重点、规模、抄送人、开发人员、预计起止、迭代、工时、分类、发布计划、来源、类型、标签、是否自动关闭任务等标准字段，以及自定义字段透传（`custom_fields`，覆盖 `custom_field_*`/`cus_*`/`custom_plan_field_*`）；`/comments` 新增 `comment_root_id`/`comment_reply_id`。标准与自定义字段聚合为单次请求提交。

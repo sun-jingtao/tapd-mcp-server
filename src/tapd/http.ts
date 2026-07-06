@@ -16,11 +16,12 @@ type TapdResponsePayload = {
   info?: string;
 };
 
-// 内部请求配置，params 用于查询字符串，body 用于 x-www-form-urlencoded 表单提交。
+// 内部请求配置，params 用于查询字符串；body 传 URLSearchParams 走 x-www-form-urlencoded 表单，
+// 传 string 视为已序列化的 JSON（部分接口如 batch_update_story 要求 JSON 数组请求体）。
 type TapdRequestOptions = {
   method?: "GET" | "POST";
   params?: URLSearchParams;
-  body?: URLSearchParams;
+  body?: URLSearchParams | string;
   errorMessage: string;
 };
 
@@ -40,14 +41,16 @@ function buildTapdUrl(path: string, params?: URLSearchParams): URL {
 
 /**
  * 构造 TAPD 请求 header。
- * 所有请求都携带 Bearer token，存在 body 时按 TAPD 表单接口要求补充 Content-Type。
+ * 所有请求都携带 Bearer token；body 为字符串时按 JSON 提交，为 URLSearchParams 时按表单提交。
  */
-function buildTapdHeaders(hasBody: boolean): Record<string, string> {
+function buildTapdHeaders(body?: URLSearchParams | string): Record<string, string> {
   const headers: Record<string, string> = {
     Authorization: `Bearer ${TAPD_CONFIG.accessToken}`,
   };
 
-  if (hasBody) {
+  if (typeof body === "string") {
+    headers["Content-Type"] = "application/json";
+  } else if (body) {
     headers["Content-Type"] = "application/x-www-form-urlencoded";
   }
 
@@ -66,7 +69,7 @@ export async function tapdRequest<T extends TapdResponsePayload>(
   try {
     response = await fetch(buildTapdUrl(path, params), {
       method,
-      headers: buildTapdHeaders(Boolean(body)),
+      headers: buildTapdHeaders(body),
       body,
       signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     });
