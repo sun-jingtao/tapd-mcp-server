@@ -1,6 +1,6 @@
 {
   "name": "tapd-mcp-server",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "mcpName": "io.github.sun-jingtao/tapd-mcp-server",
   "description": "TAPD MCP Server - 在 Cursor/Copilot 中查询、分析和回填 TAPD bug / 需求",
   "scripts": {
