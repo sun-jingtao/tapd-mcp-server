@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.6
+
+- README 优化：写操作工具表格移除逐行「（需确认）」标注，改为在「工具」标题下统一说明，避免误读为功能未完成；同步补齐上传类工具的确认说明。
+- README「快速开始」补充可选环境变量 `TAPD_ALLOW_RAW_WRITE`（控制 `tapd_call_api` 的 POST 写操作），并合并原重复的令牌说明段落。
+- README 安全提示与示例文案完善：点明 `tapd_call_api` POST 需 `TAPD_ALLOW_RAW_WRITE=true` 这道环境变量闸，示例中标明 `tapd_bug_fix_writeback` 为内置 Prompt。
+
 ## 1.0.5
 
 - 新增通用透传工具 `tapd_call_api`：直接调用任意 TAPD OpenAPI 接口（任务、工时、测试计划、模块/版本配置、Wiki、看板等），兜底 17 个专用工具未覆盖的官方接口；path/参数以官方文档为准，由调用方模型按需拼装。
