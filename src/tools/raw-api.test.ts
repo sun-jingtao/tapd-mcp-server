@@ -135,6 +135,28 @@ describe("tapd_call_api", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+  it("TAPD 占位响应（Hello world）被识别为路径不存在，不当成功返回", async () => {
+    const fetchMock = vi.fn(
+      async (_url: URL | string, _init?: RequestInit) =>
+        ({
+          ok: true,
+          status: 200,
+          text: async () =>
+            JSON.stringify({ status: 1, data: "Hello world from TAPD API. b08f010cf8e7a154d73aaf1f6962d6df" }),
+        }) as unknown as Response,
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const res = await mcp.callTool({
+      name: "tapd_call_api",
+      arguments: { path: "/wiki", params: { workspace_id: "123" } },
+    });
+
+    expect(res.isError).toBe(true);
+    expect(callText(res)).toContain("接口路径不存在");
+    expect(callText(res)).toContain("GET /wiki");
+  });
+
   it("非法 path（如带查询串）被 schema 拒绝", async () => {
     const res = await mcp.callTool({
       name: "tapd_call_api",
