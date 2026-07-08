@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.7
+
+- `tapd_call_api` 识别 TAPD「Hello world」占位响应：TAPD 对不存在的 path 不报 404 而是返回 `status: 1` + 占位字符串，此前会被当成调用成功返回；现改为报错并提示以 open.tapd.cn 官方文档 path 为准（实测 84 个 path 中 13 个此前误判为调通）。
+- `tapd_call_api` 工具描述补充 path 反例（如 Wiki 列表是 `/wikis` 而非 `/wiki`），减少模型按 REST 直觉猜错路径。
+
 ## 1.0.6
 
 - README 优化：写操作工具表格移除逐行「（需确认）」标注，改为在「工具」标题下统一说明，避免误读为功能未完成；同步补齐上传类工具的确认说明。

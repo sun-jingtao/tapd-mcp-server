@@ -52,7 +52,7 @@ export function registerRawApiTools(server: McpServer): void {
       description:
         '通用透传工具：直接调用 TAPD OpenAPI（https://api.tapd.cn）的任意 REST 接口，用于专用工具未覆盖的场景（任务、工时、测试计划、模块/版本配置、Wiki、看板等）。' +
         'path 为官方文档（open.tapd.cn）中每个接口标注的 URL 路径，例如 GET /tasks（获取任务）、GET /stories/count（需求数量）、GET /modules（模块配置）、POST /timesheets（新增工时）。' +
-        '路径没有统一推导规则，不确定时应以官方文档为准，不要凭猜测拼路径。' +
+        '路径没有统一推导规则，不确定时应以官方文档为准，不要凭猜测拼路径——按 REST 直觉猜容易踩空，例如 Wiki 列表是 /wikis 而非 /wiki，/boards、/reports 也都不是有效路径。' +
         '几乎所有接口都需要 workspace_id 参数。查询类接口默认返回 30 条，可用 page/limit 翻页。' +
         '文件上传（multipart）不走本工具，请使用 tapd_upload_bug_attachment / tapd_upload_bug_image。' +
         '注意：POST 写操作默认禁用，需在 MCP 配置 env 中设置 TAPD_ALLOW_RAW_WRITE=true，且每次调用需传 confirmed=true；优先使用专用写入工具（tapd_create_bug / tapd_writeback 等）。',
@@ -101,7 +101,15 @@ export function registerRawApiTools(server: McpServer): void {
           errorMessage: `TAPD 接口调用失败（${method} ${path}）`,
         });
 
-        let text = JSON.stringify(payload.data ?? payload, null, 2);
+        const result = payload.data ?? payload;
+        // TAPD 对不存在的 path 不报 404，而是返回 status=1 + "Hello world" 占位串，须拦下防止误判为调通。
+        if (typeof result === 'string' && result.startsWith('Hello world from TAPD API')) {
+          throw new Error(
+            `接口路径不存在（${method} ${path}）：TAPD 对无效 path 返回了占位响应。请以 open.tapd.cn 官方文档标注的 path 为准，不要凭猜测拼路径。`,
+          );
+        }
+
+        let text = JSON.stringify(result, null, 2);
         if (text.length > MAX_RESULT_CHARS) {
           text = `${text.slice(0, MAX_RESULT_CHARS)}\n…（结果过长已截断，请用 limit/page 或 fields 参数缩小查询范围）`;
         }
