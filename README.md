@@ -46,7 +46,21 @@
 | --- | --- |
 | `TAPD_ACCESS_TOKEN` | 必填。TAPD 个人访问令牌，获取路径：TAPD 个人设置 → 个人访问令牌。请只放在本机 MCP 配置里，不要提交到代码仓库 |
 | `TAPD_ALLOW_RAW_WRITE` | 可选，默认关闭。设为 `true` 后才允许 `tapd_call_api` 发起 POST 写操作（每次调用仍需你在对话中确认），详见下文「通用透传」 |
-| `SENTRY_DSN` | 可选。默认已启用 Error Monitoring；设为空字符串可关闭，或填其它 DSN 覆盖默认上报目标 |
+| `TAPD_MCP_SENTRY_DSN` | 可选。默认已启用错误上报（详见下文「错误上报与隐私」）；设为空字符串可关闭，或填自己的 DSN 覆盖默认上报目标 |
+
+### 错误上报与隐私
+
+本工具默认通过 [Sentry](https://sentry.io) 上报**未捕获的运行时错误**（崩溃堆栈、Node 版本、包版本），帮助维护者发现和修复问题。已做脱敏处理：
+
+- ✅ 上报：错误堆栈、HTTP 请求的域名与路径、响应状态码
+- ❌ 不上报：`TAPD_ACCESS_TOKEN`（走请求头，不进任何上报字段）、URL 查询参数（workspace_id、检索关键词等业务数据）、console 日志内容
+- 正常的工具调用与查询结果**不会**触发任何上报
+
+如需完全关闭，在 MCP 配置的 `env` 中设置 `TAPD_MCP_SENTRY_DSN` 为空字符串即可：
+
+```json
+"env": { "TAPD_MCP_SENTRY_DSN": "" }
+```
 
 ## 💡 使用示例
 

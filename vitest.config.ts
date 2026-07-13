@@ -10,7 +10,7 @@ export default defineConfig({
     env: {
       TAPD_ACCESS_TOKEN: "test-token-for-unit-tests",
       // 空字符串关闭默认 DSN，避免单测 import 入口时向真实 Sentry 上报
-      SENTRY_DSN: "",
+      TAPD_MCP_SENTRY_DSN: "",
     },
     coverage: {
       provider: "v8",

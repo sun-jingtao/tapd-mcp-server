@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import './instrument.js';
+// instrument 须为首个 import，保证后续模块加载前 Sentry SDK 已就绪。
+import { Sentry } from './instrument.js';
 import { realpathSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { Sentry } from './instrument.js';
 import { server } from './server.js';
 import { registerPrompts } from './prompts/index.js';
 import { registerTools } from './tools/index.js';
