@@ -8,5 +8,9 @@ export default defineConfig({
     environment: "node",
     include: ["e2e/**/*.test.ts"],
     testTimeout: 60_000,
+    env: {
+      // 空字符串关闭默认 DSN，避免 E2E 噪声打到真实 Sentry
+      SENTRY_DSN: "",
+    },
   },
 });

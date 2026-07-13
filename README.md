@@ -46,6 +46,7 @@
 | --- | --- |
 | `TAPD_ACCESS_TOKEN` | 必填。TAPD 个人访问令牌，获取路径：TAPD 个人设置 → 个人访问令牌。请只放在本机 MCP 配置里，不要提交到代码仓库 |
 | `TAPD_ALLOW_RAW_WRITE` | 可选，默认关闭。设为 `true` 后才允许 `tapd_call_api` 发起 POST 写操作（每次调用仍需你在对话中确认），详见下文「通用透传」 |
+| `SENTRY_DSN` | 可选。默认已启用 Error Monitoring；设为空字符串可关闭，或填其它 DSN 覆盖默认上报目标 |
 
 ## 💡 使用示例
 
