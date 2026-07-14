@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// instrument 须为首个 import，保证后续模块加载前 Sentry SDK 已就绪。
+import { Sentry } from './instrument.js';
 import { realpathSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
@@ -35,8 +37,10 @@ async function main() {
 const invokedPath = process.argv[1] ? pathToFileURL(realpathSync(process.argv[1])).href : undefined;
 if (invokedPath === import.meta.url) {
   // 入口层只负责把启动失败输出到 stderr，并用非 0 状态码通知 MCP 宿主进程启动失败。
-  main().catch(error => {
+  main().catch(async error => {
     console.error('启动失败:', error);
+    Sentry.captureException(error);
+    await Sentry.close(2000).catch(() => undefined);
     process.exit(1);
   });
 }

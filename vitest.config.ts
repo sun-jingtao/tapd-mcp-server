@@ -7,7 +7,11 @@ export default defineConfig({
     include: ["src/**/*.test.ts"],
     // 注入假 token：config.ts 在模块加载时即读 process.env.TAPD_ACCESS_TOKEN，
     // vitest 会先 setup env 再加载被测模块，避免单测在缺省环境下误打真实 TAPD。
-    env: { TAPD_ACCESS_TOKEN: "test-token-for-unit-tests" },
+    env: {
+      TAPD_ACCESS_TOKEN: "test-token-for-unit-tests",
+      // 空字符串关闭默认 DSN，避免单测 import 入口时向真实 Sentry 上报
+      TAPD_MCP_SENTRY_DSN: "",
+    },
     coverage: {
       provider: "v8",
       // 计入 MCP 工具层 src/index.ts（工具注册、入参校验、错误整形）与 tapd 业务核心，
