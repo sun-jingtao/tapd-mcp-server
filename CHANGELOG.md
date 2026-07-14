@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.8
+
+- 接入 Sentry 错误监控，默认启用：上报未捕获的运行时错误（崩溃堆栈、Node 版本、包版本），帮助维护者发现真实环境的问题。已做脱敏：`TAPD_ACCESS_TOKEN`（走请求头，不进任何上报字段）、URL 查询参数（workspace_id、检索关键词等业务数据）与 console 日志内容均不上报；正常的工具调用与查询结果不触发任何上报。
+- 新增可选环境变量 `TAPD_MCP_SENTRY_DSN`：设为空字符串可完全关闭上报，填自己的 DSN 则覆盖默认上报目标。详见 README「错误上报与隐私」小节。
+
 ## 1.0.7
 
 - `tapd_call_api` 识别 TAPD「Hello world」占位响应：TAPD 对不存在的 path 不报 404 而是返回 `status: 1` + 占位字符串，此前会被当成调用成功返回；现改为报错并提示以 open.tapd.cn 官方文档 path 为准（实测 84 个 path 中 13 个此前误判为调通）。
