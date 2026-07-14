@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "tapd-mcp-server",
   "display_name": "TAPD MCP",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "TAPD bug / 需求查询、分析和回填助手",
   "long_description": "TAPD MCP Server 将 TAPD 接入 Cursor、VS Code Copilot 等支持 MCP 的客户端。它可以查询 bug、需求、迭代和需求关联测试用例，获取完整上下文，并在用户确认后创建或回填 TAPD 数据。",
   "author": {

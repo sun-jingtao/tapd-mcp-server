@@ -10,19 +10,19 @@
   "websiteUrl": "https://github.com/sun-jingtao/tapd-mcp-server#readme",
   "icons": [
     {
-      "src": "https://unpkg.com/tapd-mcp-server@1.0.7/icon.png",
+      "src": "https://unpkg.com/tapd-mcp-server@1.0.8/icon.png",
       "mimeType": "image/png",
       "sizes": [
         "512x512"
       ]
     }
   ],
-  "version": "1.0.7",
+  "version": "1.0.8",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "tapd-mcp-server",
-      "version": "1.0.7",
+      "version": "1.0.8",
       "transport": {
         "type": "stdio"
       },
